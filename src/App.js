@@ -10,7 +10,8 @@ function App() {
   useEffect(
     ()=>{
        const  f = async ()=>{
-         const api= `http://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=baedf42b1ca6df56e33abb43606bbe8c`;
+        const apikey= '3265874a2c77ae4a04bb96236a642d2f';
+         const api= `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apikey}`;
         
         
          const response = await fetch(api);

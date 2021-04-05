@@ -7,20 +7,24 @@ function App() {
   const [city,setCity]=useState();
   const [data,setData] = useState('delhi');
   const [weather, setWeather] = useState();
+  const [response,setResponse] = useState();
   useEffect(
     ()=>{
        const  f = async ()=>{
         const apikey= '3265874a2c77ae4a04bb96236a642d2f';
-         const api= `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apikey}`;
+         const api= `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apikey}`
         
-        
-         const response = await fetch(api);
+         axios.get(api).then(res => {
+          //  console.log(res);
+             setResponse(res);
+      }).catch(err => {
+        console.log('eror');
+        setResponse(undefined);
+    })
          
-         const resJSON = await response.json();
+        
+     
       
-         setData(resJSON.main);
-         setWeather( (resJSON.weather));
-         console.log(data);
          
         
       } 
@@ -28,6 +32,20 @@ function App() {
       
     }
   ,[city]);
+  useEffect( ()=>{
+    console.log(city);
+    console.log(response);
+
+    if (response===undefined){
+        setData(undefined);
+         setWeather(undefined);
+    }
+    else {
+        setData(response.data.main);
+         setWeather( (response.data.weather));
+    }
+
+  },[response]);
   return (
     <div className="App">
           

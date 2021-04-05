@@ -3,6 +3,7 @@ import axios from 'axios';
 import './App.css';
 import Show from './Show';
 import SentimentVeryDissatisfiedIcon from '@material-ui/icons/SentimentVeryDissatisfied';
+import EmojiPeopleIcon from '@material-ui/icons/EmojiPeople';
 function App() {
   const [city,setCity]=useState();
   const [data,setData] = useState('delhi');
@@ -55,7 +56,20 @@ function App() {
                  <div className='input-area'>
                     <input type='text' placeholder='Enter city' onChange={(e)=>{setCity(e.target.value); } }  />
                  </div>  
-                 { ( data===undefined || weather===undefined)  ?(<div className='no'>No data  <SentimentVeryDissatisfiedIcon style={{fontSize:'5rem'}}/></div>) :(
+                 { ( data===undefined || weather===undefined)  ?(
+                   (city!=null) ?
+                   <div className='no'>Not found  <SentimentVeryDissatisfiedIcon style={{fontSize:'5rem'}}/></div>
+                   : 
+                   <div className='no'> <div className='welcome'>Welcome <EmojiPeopleIcon style={{fontSize:'5rem'}} /> </div>
+                   <br></br>
+                      <div className='enter'>
+                      Enter city
+                      </div>
+                    </div>
+                   
+                   )
+                   
+                    :(
                    <Show  city={city} temp={data.temp} minTemp={data.temp_min} maxTemp={data.temp_max} weather={weather[0].main} />
                  )}  
                  
